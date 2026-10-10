@@ -158,13 +158,25 @@ const Navbar = () => {
               </button>
 
               {session ? (
-                <button 
-                  onClick={handleSignOut}
-                  className="flex items-center gap-2 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg font-medium hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
-                >
-                  <User className="w-4 h-4" />
-                  {lang === "en" ? "Sign Out" : "লগআউট"}
-                </button>
+                <>
+                  <Link 
+                    href="/profile"
+                    className="flex items-center gap-2 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-lg font-medium hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
+                  >
+                    <div className="w-5 h-5 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                      {session.user.name?.[0]?.toUpperCase() || "U"}
+                    </div>
+                    <span className="max-w-[100px] truncate">{session.user.name}</span>
+                  </Link>
+                  <button 
+                    onClick={handleSignOut}
+                    className="flex items-center gap-2 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg font-medium hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
+                  >
+                    <User className="w-4 h-4 hidden lg:block" />
+                    <span className="hidden lg:block">{lang === "en" ? "Sign Out" : "লগআউট"}</span>
+                    <span className="block lg:hidden">Logout</span>
+                  </button>
+                </>
               ) : (
                 <Link 
                   href="/signin" 
@@ -204,10 +216,18 @@ const Navbar = () => {
               <Link href="/contact" className="block text-gray-600 dark:text-gray-300 font-medium py-2">{t("contact")}</Link>
               <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center">
                 {session ? (
-                  <button onClick={handleSignOut} className="flex items-center gap-2 text-red-600 dark:text-red-400 font-medium py-2">
-                    <User className="w-4 h-4" />
-                    {lang === "en" ? "Sign Out" : "লগআউট"}
-                  </button>
+                  <div className="flex flex-col gap-2">
+                    <Link href="/profile" className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium py-2">
+                      <div className="w-5 h-5 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                        {session.user.name?.[0]?.toUpperCase() || "U"}
+                      </div>
+                      {session.user.name}
+                    </Link>
+                    <button onClick={handleSignOut} className="flex items-center gap-2 text-red-600 dark:text-red-400 font-medium py-2">
+                      <User className="w-4 h-4" />
+                      {lang === "en" ? "Sign Out" : "লগআউট"}
+                    </button>
+                  </div>
                 ) : (
                   <Link href="/signin" className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium py-2">
                     <User className="w-4 h-4" />
