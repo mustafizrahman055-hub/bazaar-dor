@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Search } from "lucide-react";
 import { useState, useEffect, Suspense } from "react";
@@ -9,6 +9,7 @@ function SearchFilterContent() {
   const searchParams = useSearchParams();
   const { lang } = useLanguage();
   const [query, setQuery] = useState(searchParams.get("q") || "");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -18,11 +19,13 @@ function SearchFilterContent() {
       } else {
         params.delete("q");
       }
-      router.push(`/?${params.toString()}#all-products`, { scroll: false });
+      
+      const hash = pathname === "/" ? "#all-products" : "";
+      router.push(`${pathname}?${params.toString()}${hash}`, { scroll: false });
     }, 300);
 
     return () => clearTimeout(handler);
-  }, [query, router, searchParams]);
+  }, [query, router, searchParams, pathname]);
 
   return (
     <div className="relative w-full md:w-64">
