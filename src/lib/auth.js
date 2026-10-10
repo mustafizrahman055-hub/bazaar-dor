@@ -1,28 +1,23 @@
 import { betterAuth } from "better-auth";
-import Database from "better-sqlite3";
-import path from "path";
-import os from "os";
+import { mongodbAdapter } from "@better-auth/mongo-adapter";
+import { MongoClient } from "mongodb";
 
-// Use an in-memory database on Vercel to bypass read-only filesystem issues.
-// Note: This will wipe data on cold start, but is sufficient for the assignment demo.
-const isProd = process.env.NODE_ENV === "production";
-const db = new Database(isProd ? ":memory:" : "sqlite.db");
+// Fallback URI if environment variable is not set
+const uri = process.env.MONGODB_URI || "mongodb+srv://mustafizrahman055_db_user:y4KB5AiYCgfRq1ix@cluster0.mekkpss.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-if (isProd) {
-  try {
-    db.exec(`
-      CREATE TABLE IF NOT EXISTS "user" ("id" text not null primary key, "name" text not null, "email" text not null unique, "emailVerified" integer not null, "image" text, "createdAt" date not null, "updatedAt" date not null);
-      CREATE TABLE IF NOT EXISTS "session" ("id" text not null primary key, "expiresAt" date not null, "token" text not null unique, "createdAt" date not null, "updatedAt" date not null, "ipAddress" text, "userAgent" text, "userId" text not null references "user" ("id") on delete cascade);
-      CREATE TABLE IF NOT EXISTS "account" ("id" text not null primary key, "accountId" text not null, "providerId" text not null, "userId" text not null references "user" ("id") on delete cascade, "accessToken" text, "refreshToken" text, "idToken" text, "accessTokenExpiresAt" date, "refreshTokenExpiresAt" date, "scope" text, "password" text, "createdAt" date not null, "updatedAt" date not null);
-      CREATE TABLE IF NOT EXISTS "verification" ("id" text not null primary key, "identifier" text not null, "value" text not null, "expiresAt" date not null, "createdAt" date not null, "updatedAt" date not null);
-    `);
-  } catch (e) {
-    console.error("Error migrating in-memory db", e);
-  }
+// Global cache for MongoDB client across Vercel hot reloads/invocations
+let client;
+if (!global._mongoClient) {
+  global._mongoClient = new MongoClient(uri);
+  // Start connecting in the background (driver will queue queries until connected)
+  global._mongoClient.connect().catch(console.error);
 }
+client = global._mongoClient;
+
+const db = client.db("bazardor");
 
 export const auth = betterAuth({
-  database: db,
+  database: mongodbAdapter(db),
   
   emailAndPassword: {
     enabled: true,
