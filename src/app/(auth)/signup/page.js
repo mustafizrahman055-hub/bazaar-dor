@@ -22,7 +22,6 @@ export default function SignUpPage() {
     if (/^[0-9+]+$/.test(email)) {
       email = `${email}@mobile.com`;
     }
-    const password = e.target.password.value;
     
     const { data, error } = await authClient.signUp.email({
         name,
