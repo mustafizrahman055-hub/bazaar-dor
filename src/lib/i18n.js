@@ -255,6 +255,29 @@ export const translations = {
     noProducts: "এই ক্যাটাগরিতে কোনো পণ্য পাওয়া যায়নি",
     noProductsDesc: "হয়তো আপনি ভুল লিংকে এসেছেন অথবা এই ক্যাটাগরিতে এখনো কোনো পণ্য যোগ করা হয়নি।",
     backHome: "হোম পেজে ফিরে যান",
+    
+    // Auth
+    signInTitle: "সাইন ইন করুন",
+    signInDesc: "বাজার দরে আপনাকে স্বাগতম",
+    emailOrMobile: "ইমেইল বা মোবাইল নম্বর",
+    emailOrMobilePlaceholder: "আপনার ইমেইল বা মোবাইল নম্বর দিন",
+    passwordLabel: "পাসওয়ার্ড",
+    passwordPlaceholder: "পাসওয়ার্ড দিন",
+    loginButton: "লগিন করুন",
+    loadingBtn: "অপেক্ষা করুন...",
+    orSocialLogin: "অথবা সোশ্যাল লগিন করুন",
+    loginWithGoogle: "Google দিয়ে লগিন করুন",
+    loginWithGitHub: "GitHub দিয়ে লগিন করুন",
+    newUserText: "নতুন ইউজার?",
+    registerLink: "রেজিস্টার করুন",
+    signUpTitle: "অ্যাকাউন্ট তৈরি করুন",
+    signUpDesc: "বাজার দরে যুক্ত হোন",
+    nameLabel: "আপনার নাম",
+    namePlaceholder: "আপনার নাম দিন",
+    registerButton: "রেজিস্টার করুন",
+    alreadyHaveAccount: "আগে থেকে অ্যাকাউন্ট আছে?",
+    loginError: "লগিন ব্যর্থ হয়েছে। সঠিক তথ্য দিন।",
+    registerError: "রেজিস্ট্রেশন ব্যর্থ হয়েছে। সঠিক তথ্য দিন।"
   },
   en: {
     // Navigation & Brand
@@ -310,5 +333,28 @@ export const translations = {
     noProducts: "No products found in this category",
     noProductsDesc: "You might have followed a broken link or no products have been added yet.",
     backHome: "Back to Home",
+    
+    // Auth
+    signInTitle: "Sign In",
+    signInDesc: "Welcome to Bazar Dor",
+    emailOrMobile: "Email or Mobile Number",
+    emailOrMobilePlaceholder: "Enter your email or mobile",
+    passwordLabel: "Password",
+    passwordPlaceholder: "Enter password",
+    loginButton: "Sign In",
+    loadingBtn: "Please wait...",
+    orSocialLogin: "Or continue with",
+    loginWithGoogle: "Sign in with Google",
+    loginWithGitHub: "Sign in with GitHub",
+    newUserText: "New user?",
+    registerLink: "Register here",
+    signUpTitle: "Create an Account",
+    signUpDesc: "Join Bazar Dor today",
+    nameLabel: "Your Name",
+    namePlaceholder: "Enter your name",
+    registerButton: "Sign Up",
+    alreadyHaveAccount: "Already have an account?",
+    loginError: "Login failed. Please check your credentials.",
+    registerError: "Registration failed. Please check your information."
   }
 };
