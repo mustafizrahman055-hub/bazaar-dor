@@ -13,6 +13,10 @@ const ProductCard = ({ product }) => {
   const isUp = product.change.dir === 'up';
   const isDown = product.change.dir === 'down';
   
+  const productName = lang === 'en' && product.slug 
+    ? product.slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    : product.nameBn;
+  
   return (
     <Link href={`/product/${product.slug}`} className="block group">
       <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-5 hover:shadow-md transition-shadow h-full flex flex-col relative overflow-hidden">
@@ -23,7 +27,7 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="flex-1">
             <h3 className="font-bold text-gray-800 dark:text-gray-100 text-lg group-hover:text-green-600 transition-colors">
-              {product.nameBn}
+              {productName}
             </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
               {t("pricePer")} {product.unit === 'kg' ? (lang === 'en' ? 'kg' : 'কেজি') : product.unit === 'l' ? (lang === 'en' ? 'L' : 'লিটার') : product.unit === 'dozen' ? (lang === 'en' ? 'dozen' : 'ডজন') : (lang === 'en' ? 'pc' : 'পিস')}
