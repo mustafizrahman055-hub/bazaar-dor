@@ -17,13 +17,13 @@ const Navbar = () => {
         <div className="marquee flex gap-8 whitespace-nowrap text-sm">
           <span>{t("datePrefix")} {lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}</span>
           <span>•</span>
-          <span>চাল: ⬆ ২%</span>
+          <span>{t("tickerRice")}</span>
           <span>•</span>
-          <span>ডাল: ⬇ ১%</span>
+          <span>{t("tickerDal")}</span>
           <span>•</span>
-          <span>সয়াবিন তেল: ➖ অপরিবর্তিত</span>
+          <span>{t("tickerOil")}</span>
           <span>•</span>
-          <span>মুরগি: ⬆ ৩%</span>
+          <span>{t("tickerChicken")}</span>
         </div>
       </div>
 
@@ -35,9 +35,9 @@ const Navbar = () => {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                ব
+                {lang === "en" ? "B" : "ব"}
               </div>
-              <span className="font-bold text-xl text-gray-900 dark:text-white">বাজার দর</span>
+              <span className="font-bold text-xl text-gray-900 dark:text-white">{t("brandTitle")}</span>
             </Link>
 
             {/* Desktop Menu */}
@@ -53,9 +53,9 @@ const Navbar = () => {
                 {/* Dropdown */}
                 <div className="absolute top-full left-0 w-48 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0">
                   <div className="py-2">
-                    <Link href="/category/chal" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">চাল</Link>
-                    <Link href="/category/dal" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">ডাল</Link>
-                    <Link href="/category/tel" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">তেল</Link>
+                    <Link href="/category/chal" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{t("catRice")}</Link>
+                    <Link href="/category/dal" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{t("catDal")}</Link>
+                    <Link href="/category/tel" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{t("catOil")}</Link>
                   </div>
                 </div>
               </div>

@@ -5,7 +5,7 @@ export default function SectionTitle({ titleKey, icon, iconColor = "text-gray-50
   const { t } = useLanguage();
   return (
     <div className="flex items-center gap-2 mb-6">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{t(titleKey)}</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t(titleKey)}</h2>
       {icon && <span className={iconColor}>{icon}</span>}
     </div>
   );

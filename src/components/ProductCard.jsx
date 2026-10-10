@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getProductName, getUnitText } from "@/lib/i18n";
 
 export const engToBnNum = (num, lang) => {
   if (lang === 'en') return num.toString();
@@ -13,9 +14,7 @@ const ProductCard = ({ product }) => {
   const isUp = product.change.dir === 'up';
   const isDown = product.change.dir === 'down';
   
-  const productName = lang === 'en' && product.slug 
-    ? product.slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
-    : product.nameBn;
+  const productName = getProductName(product, lang);
   
   return (
     <Link href={`/product/${product.slug}`} className="block group">
@@ -30,7 +29,7 @@ const ProductCard = ({ product }) => {
               {productName}
             </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              {t("pricePer")} {product.unit === 'kg' ? (lang === 'en' ? 'kg' : 'কেজি') : product.unit === 'l' ? (lang === 'en' ? 'L' : 'লিটার') : product.unit === 'dozen' ? (lang === 'en' ? 'dozen' : 'ডজন') : (lang === 'en' ? 'pc' : 'পিস')}
+              {t("pricePer")} {getUnitText(product.unit, lang)}
             </p>
           </div>
         </div>

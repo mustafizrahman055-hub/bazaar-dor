@@ -1,12 +1,162 @@
+export const productTranslations = {
+  // Rice
+  "sorno-machi-chal": { en: "Swarna Rice", bn: "স্বর্ণমাছি চাল" },
+  "miniket-chal": { en: "Miniket Rice", bn: "মিনিকেট চাল" },
+  "nazir-chal": { en: "Nazirshail Rice", bn: "নাজির চাল" },
+  "batam-size-chal": { en: "Coarse Rice", bn: "বাটাম সাইজ চাল" },
+  
+  // Lentils
+  "mosur-dal": { en: "Red Lentils", bn: "মসুর ডাল" },
+  "mug-dal": { en: "Mung Beans", bn: "মুগ ডাল" },
+  "chola-dal": { en: "Chickpeas", bn: "ছোলা" },
+  "aman-dal-khosasila": { en: "Split Black Gram", bn: "আমন ডাল (খোসাসিলা)" },
+  
+  // Oil
+  "sorishar-tel": { en: "Mustard Oil", bn: "সরিষার তেল" },
+  "pam-tel": { en: "Palm Oil", bn: "পাম তেল" },
+  "ghani-banga-sorishar-tel": { en: "Cold Pressed Mustard Oil", bn: "ঘানি ভাঙা সরিষার তেল" },
+  
+  // Vegetables & Spices
+  "alu": { en: "Potato", bn: "আলু" },
+  "peyaj": { en: "Onion", bn: "পেঁয়াজ" },
+  "kaccha-moric": { en: "Green Chili", bn: "কাঁচামরিচ" },
+  "begun": { en: "Eggplant", bn: "বেগুন" },
+  "dhenders": { en: "Lady's Finger (Okra)", bn: "ঢেঁড়স" },
+  "ada": { en: "Ginger", bn: "আদা" },
+  "roshun": { en: "Garlic", bn: "রসুন" },
+  "morich-gunda": { en: "Chili Powder", bn: "মরিচ গুঁড়া" },
+  "dhanepata-gunda": { en: "Coriander Powder", bn: "ধনেপাতা গুঁড়া" },
+  
+  // Fish
+  "rui-mach": { en: "Rohu Fish", bn: "রুই মাছ" },
+  "telapiya-mach": { en: "Tilapia Fish", bn: "তেলাপিয়া" },
+  "ilish-mach": { en: "Hilsa Fish", bn: "ইলিশ মাছ" },
+  "katla-mach": { en: "Catla Fish", bn: "কাতলা মাছ" },
+  "chingri-mach": { en: "Shrimp / Prawn", bn: "চিংড়ি মাছ (খোলা)" },
+  
+  // Meat & Dairy
+  "murgi-r-mangsho": { en: "Broiler Chicken", bn: "মুরগির মাংস" },
+  "goru-r-mangsho": { en: "Beef", bn: "গরুর মাংস" },
+  "khasir-mangsho": { en: "Mutton", bn: "খাসির মাংস" },
+  "hanser-mangsho": { en: "Duck Meat", bn: "হাঁসের মাংস" },
+  "dim": { en: "Egg", bn: "ডিম" },
+  "dui-dudh": { en: "Milk", bn: "দুধ" },
+  "doi": { en: "Curd / Yogurt", bn: "দই" },
+  "mokhhan": { en: "Butter (100g)", bn: "মাখন (১০০ গ্রাম)" }
+};
+
+export const categoryTranslations = {
+  chal: { en: "Rice", bn: "চাল" },
+  dal: { en: "Lentils", bn: "ডাল" },
+  tel: { en: "Edible Oil", bn: "তেল" },
+  sobji: { en: "Vegetables", bn: "সবজি" },
+  mach: { en: "Fish", bn: "মাছ" },
+  mangsho: { en: "Meat", bn: "মাংস" },
+  dim: { en: "Eggs", bn: "ডিম" },
+  dudh: { en: "Dairy & Milk", bn: "দুধ ও দুগ্ধজাত" },
+  moshla: { en: "Spices", bn: "মসলা" },
+  all: { en: "All Categories", bn: "সব ক্যাটাগরি" }
+};
+
+export const marketTranslations = {
+  "কাওরান বাজার": "Karwan Bazar",
+  "মিরপুর ১": "Mirpur 1",
+  "কারওয়ান বাজার": "Karwan Bazar",
+  "নিউ মার্কেট": "New Market",
+  "মৌলভীবাজার": "Moulvibazar",
+  "মোহাম্মদপুর": "Mohammadpur",
+  "ঢাকা": "Dhaka",
+  "চট্টগ্রাম": "Chittagong",
+  "রাজশাহী": "Rajshahi",
+  "খুলনা": "Khulna",
+  "বরিশাল": "Barishal",
+  "সিলেট": "Sylhet",
+  "রংপুর": "Rangpur",
+  "ময়মনসিংহ": "Mymensingh"
+};
+
+export function getProductName(product, lang = "bn") {
+  if (!product) return "";
+  if (lang === "bn") {
+    return product.nameBn || product.name || product.slug || "";
+  }
+  // When lang === 'en'
+  if (product.slug && productTranslations[product.slug]?.en) {
+    return productTranslations[product.slug].en;
+  }
+  if (product.nameEn) {
+    return product.nameEn;
+  }
+  // Fallback intelligent translation
+  if (product.slug) {
+    const slugMap = {
+      chal: "Rice",
+      mach: "Fish",
+      mangsho: "Meat",
+      tel: "Oil",
+      dal: "Lentils",
+      dim: "Egg",
+      dudh: "Milk",
+      alu: "Potato",
+      peyaj: "Onion",
+      ada: "Ginger",
+      roshun: "Garlic",
+      begun: "Eggplant",
+      moric: "Chili",
+      morich: "Chili",
+    };
+    const words = product.slug.split("-");
+    return words
+      .map(w => slugMap[w.toLowerCase()] || (w.charAt(0).toUpperCase() + w.slice(1)))
+      .join(" ");
+  }
+  return product.nameBn || "";
+}
+
+export function getCategoryName(category, lang = "bn") {
+  if (!category) return lang === "en" ? "Category" : "ক্যাটাগরি";
+  const slug = typeof category === "object" ? (category.slug || category.category) : category;
+  if (slug && categoryTranslations[slug]) {
+    return categoryTranslations[slug][lang] || categoryTranslations[slug].bn;
+  }
+  if (typeof category === "object" && category.categoryNameBn && lang === "bn") {
+    return category.categoryNameBn;
+  }
+  return lang === "en" ? (slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : "Category") : (category?.categoryNameBn || "ক্যাটাগরি");
+}
+
+export function getUnitText(unit, lang = "bn") {
+  if (!unit) return "";
+  const u = unit.toLowerCase();
+  if (u === "kg") return lang === "en" ? "kg" : "কেজি";
+  if (u === "l" || u === "liter" || u === "litre") return lang === "en" ? "liter" : "লিটার";
+  if (u === "dozen") return lang === "en" ? "dozen" : "ডজন";
+  if (u === "pc" || u === "piece") return lang === "en" ? "pc" : "পিস";
+  return unit;
+}
+
 export const translations = {
   bn: {
-    // Navigation
+    // Navigation & Brand
+    brandTitle: "বাজার দর",
     home: "হোম",
     category: "ক্যাটাগরি",
     contact: "যোগাযোগ",
-    signin: "লগিন",
+    signin: "লগইন",
+    signup: "রেজিস্ট্রেশন",
     
-    // Home Page
+    // Marquee Ticker
+    tickerRice: "চাল: ⬆ ২%",
+    tickerDal: "ডাল: ⬇ ১%",
+    tickerOil: "সয়াবিন তেল: ➖ অপরিবর্তিত",
+    tickerChicken: "মুরগি: ⬆ ৩%",
+    
+    // Category dropdown
+    catRice: "চাল",
+    catDal: "ডাল",
+    catOil: "তেল",
+    
+    // Home Page Hero
     heroTitle: "আজকের বাজারের দাম এক নজরে",
     heroSubtitle: "চাল, ডাল, তেল, সবজি, মাছ, মাংস থেকে শুরু করে সব ধরনের নিত্যপ্রয়োজনীয় বাজারের আপডেট দাম দেখে নিন।",
     heroButton: "সব পণ্য দেখুন",
@@ -42,13 +192,26 @@ export const translations = {
     backHome: "হোম পেজে ফিরে যান",
   },
   en: {
-    // Navigation
+    // Navigation & Brand
+    brandTitle: "Bazar Dor",
     home: "Home",
     category: "Category",
     contact: "Contact",
     signin: "Sign In",
+    signup: "Sign Up",
     
-    // Home Page
+    // Marquee Ticker
+    tickerRice: "Rice: ⬆ 2%",
+    tickerDal: "Lentils: ⬇ 1%",
+    tickerOil: "Soybean Oil: ➖ Unchanged",
+    tickerChicken: "Chicken: ⬆ 3%",
+    
+    // Category dropdown
+    catRice: "Rice",
+    catDal: "Lentils",
+    catOil: "Edible Oil",
+    
+    // Home Page Hero
     heroTitle: "Today's Market Prices at a Glance",
     heroSubtitle: "Check the updated prices of all essential groceries including rice, lentils, oil, vegetables, fish, and meat.",
     heroButton: "View All Products",
