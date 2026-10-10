@@ -1,7 +1,36 @@
 import Link from "next/link";
 import { ArrowRight, ShoppingBasket } from "lucide-react";
+import ProductCard from "@/components/ProductCard";
 
-export default function Home() {
+// Helper function to fetch products
+async function getProducts() {
+  // Using alternative URL since the primary one returned HTML during testing
+  const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products", {
+    next: { revalidate: 60 } // Revalidate every minute
+  });
+  
+  if (!res.ok) {
+    return [];
+  }
+  
+  return res.json();
+}
+
+export default async function Home() {
+  const products = await getProducts();
+  
+  // Get top 6 risers (dir === 'up') sorted by percentage change
+  const risers = [...products]
+    .filter(p => p.change.dir === 'up')
+    .sort((a, b) => b.change.pct - a.change.pct)
+    .slice(0, 6);
+    
+  // Get top 6 fallers (dir === 'down') sorted by percentage change
+  const fallers = [...products]
+    .filter(p => p.change.dir === 'down')
+    .sort((a, b) => b.change.pct - a.change.pct)
+    .slice(0, 6);
+
   return (
     <div className="flex flex-col gap-16 pb-16">
       
@@ -27,7 +56,6 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-1 flex justify-center md:justify-end">
-            {/* Simple Illustration using Lucide and emojis */}
             <div className="relative w-64 h-64 bg-green-100 rounded-full flex items-center justify-center shadow-inner">
               <ShoppingBasket className="w-32 h-32 text-green-600 absolute" />
               <div className="text-5xl absolute -top-4 right-8">🍎</div>
@@ -39,32 +67,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product Sections (Placeholders) */}
       <div className="container mx-auto px-4 space-y-16">
         
         {/* Section A - আজ দাম বেড়েছে */}
-        <section>
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">আজ দাম বেড়েছে</h2>
-            <span className="text-red-500">▲</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {/* Cards will go here */}
-            <div className="p-4 border rounded-xl bg-white shadow-sm h-32 flex items-center justify-center text-gray-400">Loading risers...</div>
-          </div>
-        </section>
+        {risers.length > 0 && (
+          <section>
+            <div className="flex items-center gap-2 mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">আজ দাম বেড়েছে</h2>
+              <span className="text-red-500">▲</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {risers.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Section B - আজ দাম কমেছে */}
-        <section>
-          <div className="flex items-center gap-2 mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">আজ দাম কমেছে</h2>
-            <span className="text-green-500">▼</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {/* Cards will go here */}
-            <div className="p-4 border rounded-xl bg-white shadow-sm h-32 flex items-center justify-center text-gray-400">Loading fallers...</div>
-          </div>
-        </section>
+        {fallers.length > 0 && (
+          <section>
+            <div className="flex items-center gap-2 mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">আজ দাম কমেছে</h2>
+              <span className="text-green-500">▼</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {fallers.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Section C - সব পণ্য */}
         <section id="all-products">
@@ -73,8 +106,9 @@ export default function Home() {
             <p className="text-gray-500 text-sm mt-1">বাজারের সকল পণ্যের তালিকা</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {/* Cards will go here */}
-            <div className="p-4 border rounded-xl bg-white shadow-sm h-32 flex items-center justify-center text-gray-400">Loading all products...</div>
+            {products.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
         </section>
 
