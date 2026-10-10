@@ -206,13 +206,15 @@ export function getTodayDate(lang = "bn") {
     return new Intl.DateTimeFormat('bn-BD', { 
       day: 'numeric', 
       month: 'long', 
-      year: 'numeric' 
+      year: 'numeric',
+      timeZone: 'Asia/Dhaka'
     }).format(date);
   }
   return new Intl.DateTimeFormat('en-US', { 
     month: 'long', 
     day: 'numeric',
-    year: 'numeric' 
+    year: 'numeric',
+    timeZone: 'Asia/Dhaka'
   }).format(date);
 }
 
