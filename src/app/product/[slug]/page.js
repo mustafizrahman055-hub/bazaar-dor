@@ -1,13 +1,11 @@
 import { notFound } from "next/navigation";
 import ProductDetailsContent from "@/components/ProductDetailsContent";
+import { getAllProducts } from "@/lib/api";
+
+export const instant = false;
 
 async function getProduct(slug) {
-  const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products", {
-    next: { revalidate: 60 }
-  });
-  
-  if (!res.ok) return null;
-  const products = await res.json();
+  const products = await getAllProducts();
   return products.find(p => p.slug === slug);
 }
 

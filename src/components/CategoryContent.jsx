@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import ProductCard, { engToBnNum } from "@/components/ProductCard";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getCategoryName } from "@/lib/i18n";
+import SearchFilter from "@/components/SearchFilter";
 
 export default function CategoryContent({ slug, sort, products }) {
   const { t, lang } = useLanguage();
@@ -49,6 +50,10 @@ export default function CategoryContent({ slug, sort, products }) {
               {engToBnNum(sortedProducts.length, lang)} {t("productsFound")}
             </p>
           </div>
+        </div>
+
+        <div className="hidden md:block">
+          <SearchFilter />
         </div>
 
         {/* Sort Controls */}

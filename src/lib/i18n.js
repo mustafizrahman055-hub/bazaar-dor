@@ -39,10 +39,73 @@ export const productTranslations = {
   "goru-r-mangsho": { en: "Beef", bn: "গরুর মাংস" },
   "khasir-mangsho": { en: "Mutton", bn: "খাসির মাংস" },
   "hanser-mangsho": { en: "Duck Meat", bn: "হাঁসের মাংস" },
+  "sonali-murgi": { en: "Sonali Chicken", bn: "সোনালী মুরগি" },
+  "chini": { en: "Sugar", bn: "চিনি" },
+  "lobon": { en: "Salt", bn: "লবণ" },
   "dim": { en: "Egg", bn: "ডিম" },
   "dui-dudh": { en: "Milk", bn: "দুধ" },
   "doi": { en: "Curd / Yogurt", bn: "দই" },
-  "mokhhan": { en: "Butter (100g)", bn: "মাখন (১০০ গ্রাম)" }
+  "mokhhan": { en: "Butter (100g)", bn: "মাখন (১০০ গ্রাম)" },
+  
+  // Groceries (Mudikhana)
+  "lux-sabun": { en: "Lux Soap (150g)", bn: "লাক্স সাবান (১৫০ গ্রাম)" },
+  "maggi-noodles": { en: "Maggi Noodles (8 Pack)", bn: "ম্যাগি নুডলস (৮ প্যাক)" },
+  "ispahani-cha": { en: "Ispahani Tea (400g)", bn: "ইস্পাহানি মির্জাপুর চা (৪০০ গ্রাম)" },
+  "lexus-biscuit": { en: "Lexus Biscuit", bn: "লেক্সাস বিস্কুট" },
+  
+  // Health & Beauty
+  "pepsodent-toothpaste": { en: "Pepsodent Toothpaste (200g)", bn: "পেপসোডেন্ট টুথপেস্ট (২০০ গ্রাম)" },
+  "toothbrush": { en: "Toothbrush", bn: "টুথব্রাশ" },
+  "parachute-narikel-tel": { en: "Parachute Coconut Oil (200ml)", bn: "প্যারাসুট নারিকেল তেল (২০০ মিলি)" },
+  "meril-petroleum-jelly": { en: "Meril Petroleum Jelly (50g)", bn: "মেরিল পেট্রোলিয়াম জেলি (৫০ গ্রাম)" },
+  "sandalina-sabun": { en: "Sandalina Soap", bn: "স্যান্ডালিনা সাবান" },
+  "meril-sabun": { en: "Meril Soap", bn: "মেরিল সাবান" },
+  "tibet-sabun": { en: "Tibet Soap", bn: "তিব্বত সাবান" },
+  "keya-sabun": { en: "Keya Soap", bn: "কেয়া সাবান" },
+  "dove-sabun": { en: "Dove Soap", bn: "ডাভ সাবান" },
+  "pears-sabun": { en: "Pears Soap", bn: "পিয়ার্স সাবান" },
+  "aromatic-sabun": { en: "Aromatic Soap", bn: "অ্যারোমেটিক সাবান" },
+  "imperial-sabun": { en: "Imperial Leather Soap", bn: "ইম্পেরিয়াল লেদার সাবান" },
+  "lifebuoy-sabun": { en: "Lifebuoy Soap", bn: "লাইফবয় সাবান" },
+  "dettol-sabun": { en: "Dettol Soap", bn: "ডেটল সাবান" },
+  "savlon-sabun": { en: "Savlon Soap", bn: "স্যাভলন সাবান" },
+  "sepnil-sabun": { en: "Sepnil Soap", bn: "সেপনিল সাবান" },
+  "meril-sabun": { en: "Meril Baby Soap", bn: "মেরিল বেবি সাবান" },
+  "johnsons-sabun": { en: "Johnson's Baby Soap", bn: "জনসনস বেবি সাবান" },
+  "kodomo-sabun": { en: "Kodomo Baby Soap", bn: "কোদোমো সাবান" },
+  "wheel-sabun": { en: "Wheel Laundry Soap", bn: "হুইল সাবান" },
+  "chaka-sabun": { en: "Chaka Laundry Soap", bn: "চাকা সাবান" },
+  "fast-sabun": { en: "Fast Wash", bn: "ফাস্ট ওয়াশ" },
+  "sunsilk-bottle": { en: "Sunsilk Shampoo (180ml)", bn: "সানসিল্ক শ্যাম্পু (১৮০ মিলি)" },
+  "clear-bottle": { en: "Clear Shampoo (180ml)", bn: "ক্লিয়ার শ্যাম্পু (১৮০ মিলি)" },
+  "head-bottle": { en: "Head & Shoulders (180ml)", bn: "হেড অ্যান্ড শোল্ডারস (১৮০ মিলি)" },
+  "tresemm-bottle": { en: "TRESemmé Shampoo (580ml)", bn: "ট্রেসমে শ্যাম্পু (৫৮০ মিলি)" },
+  "close-up-item": { en: "Close-Up Toothpaste (140g)", bn: "ক্লোজ-আপ টুথপেস্ট (১৪০ গ্রাম)" },
+  "mediplus-item": { en: "Mediplus Toothpaste (140g)", bn: "মেডিপ্লাস টুথপেস্ট (১৪০ গ্রাম)" },
+  "white-item": { en: "White Plus Toothpaste", bn: "হোয়াইট প্লাস টুথপেস্ট" },
+  "sensodyne-item": { en: "Sensodyne Toothpaste (100g)", bn: "সেনসোডাইন টুথপেস্ট (১০০ গ্রাম)" },
+  "vaseline-bottle": { en: "Vaseline Body Lotion (100ml)", bn: "ভেসলিন বডি লোশন (১০০ মিলি)" },
+  "nivea-bottle": { en: "Nivea Cream (100ml)", bn: "নিভিয়া ক্রিম (১০০ মিলি)" },
+  "ponds-bottle": { en: "Pond's Face Wash (100g)", bn: "পন্ডস ফেস ওয়াশ (১০০ গ্রাম)" },
+  "glow-bottle": { en: "Glow & Lovely Cream (50g)", bn: "গ্লো অ্যান্ড লাভলি ক্রিম (৫০ গ্রাম)" },
+  "gillette-item": { en: "Gillette Shaving Foam", bn: "জিলেট শেভিং ফোম" },
+  "denim-bottle": { en: "Denim After Shave", bn: "ডেনিম আফটার শেভ" },
+  "himalaya-bottle": { en: "Himalaya Face Wash", bn: "হিমালয়া ফেস ওয়াশ" },
+  "loral-bottle": { en: "L'Oréal Shampoo (340ml)", bn: "লোরিয়েল শ্যাম্পু (৩৪০ মিলি)" },
+  "neutrogena-bottle": { en: "Neutrogena Face Wash", bn: "নিউট্রোজিনা ফেস ওয়াশ" },
+  "the-bottle": { en: "The Body Shop Shower Gel", bn: "দ্য বডি শপ শাওয়ার জেল" },
+  "pantene-bottle": { en: "Pantene Shampoo (180ml)", bn: "প্যানটিন শ্যাম্পু (১৮০ মিলি)" },
+  "loral-bottle": { en: "L'Oréal Paris Shampoo (175ml)", bn: "লোরিয়েল প্যারিস শ্যাম্পু (১৭৫ মিলি)" },
+  "garnier-bottle": { en: "Garnier Fructis Shampoo (175ml)", bn: "গার্নিয়ার ফ্রুকটিস শ্যাম্পু (১৭৫ মিলি)" },
+  "jui-bottle": { en: "Jui Coconut Oil (200ml)", bn: "জুঁই নারিকেল তেল (২০০ মিলি)" },
+  "vatika-bottle": { en: "Vatika Shampoo (180ml)", bn: "ভাটিকা শ্যাম্পু (১৮০ মিলি)" },
+  "clinic-bottle": { en: "Clinic Plus Shampoo (175ml)", bn: "ক্লিনিক প্লাস শ্যাম্পু (১৭৫ মিলি)" },
+  "kumarika-bottle": { en: "Kumarika Hair Oil (200ml)", bn: "কুমারিকা হেয়ার অয়েল (২০০ মিলি)" },
+  "johnsons-bottle": { en: "Johnson's Baby Shampoo (100ml)", bn: "জনসনস বেবি শ্যাম্পু (১০০ মিলি)" },
+  "kodomo-bottle": { en: "Kodomo Baby Shampoo (200ml)", bn: "কোদোমো বেবি শ্যাম্পু (২০০ মিলি)" },
+  "meril-bottle": { en: "Meril Baby Shampoo (100ml)", bn: "মেরিল বেবি শ্যাম্পু (১০০ মিলি)" },
+  "biotique-bottle": { en: "Biotique Shampoo (190ml)", bn: "বায়োটিক শ্যাম্পু (১৯০ মিলি)" },
+  "sebamed-bottle": { en: "SebaMed Baby Wash (200ml)", bn: "সেবামেড বেবি ওয়াশ (২০০ মিলি)" }
 };
 
 export const categoryTranslations = {
@@ -55,6 +118,8 @@ export const categoryTranslations = {
   dim: { en: "Eggs", bn: "ডিম" },
   dudh: { en: "Dairy & Milk", bn: "দুধ ও দুগ্ধজাত" },
   moshla: { en: "Spices", bn: "মসলা" },
+  mudikhana: { en: "Groceries", bn: "মুদিখানা" },
+  "health-beauty": { en: "Health & Beauty", bn: "হেলথ অ্যান্ড বিউটি" },
   all: { en: "All Categories", bn: "সব ক্যাটাগরি" }
 };
 
@@ -146,10 +211,10 @@ export const translations = {
     signup: "রেজিস্ট্রেশন",
     
     // Marquee Ticker
-    tickerRice: "চাল: ⬆ ২%",
-    tickerDal: "ডাল: ⬇ ১%",
-    tickerOil: "সয়াবিন তেল: ➖ অপরিবর্তিত",
-    tickerChicken: "মুরগি: ⬆ ৩%",
+    tickerRice: "মিনিকেট চাল: ৭৫ ৳/কেজি ⬆",
+    tickerDal: "মসুর ডাল: ১২০ ৳/কেজি ⬇",
+    tickerOil: "সয়াবিন তেল: ১৬৭ ৳/লিটার ➖",
+    tickerChicken: "ব্রয়লার মুরগি: ১৮০ ৳/কেজি ⬆",
     
     // Category dropdown
     catRice: "চাল",
@@ -201,10 +266,10 @@ export const translations = {
     signup: "Sign Up",
     
     // Marquee Ticker
-    tickerRice: "Rice: ⬆ 2%",
-    tickerDal: "Lentils: ⬇ 1%",
-    tickerOil: "Soybean Oil: ➖ Unchanged",
-    tickerChicken: "Chicken: ⬆ 3%",
+    tickerRice: "Miniket Rice: 75 Tk/kg ⬆",
+    tickerDal: "Red Lentils: 120 Tk/kg ⬇",
+    tickerOil: "Soybean Oil: 167 Tk/L ➖",
+    tickerChicken: "Broiler Chicken: 180 Tk/kg ⬆",
     
     // Category dropdown
     catRice: "Rice",

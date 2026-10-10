@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { User, Menu, X, Sun, Moon, Languages } from "lucide-react";
-import { useState } from "react";
+import { User, Menu, X, Sun, Moon, Languages, ShoppingCart } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -9,21 +9,79 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const { lang, toggleLanguage, t, mounted } = useLanguage();
+  const [dynamicTickerItems, setDynamicTickerItems] = useState([
+    `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+  ]);
+
+  useEffect(() => {
+    const fetchTickerData = async () => {
+      try {
+        const res = await fetch('/api/ticker');
+        if (res.ok) {
+          const data = await res.json();
+          const items = data.map(p => {
+            const name = lang === 'en' ? (p.slug.replace(/-/g, ' ')) : p.nameBn;
+            const sign = p.change.dir === 'up' ? '⬆' : p.change.dir === 'down' ? '⬇' : '➖';
+            return `${name}: ${p.today} ৳ ${sign}`;
+          });
+          setDynamicTickerItems([
+            `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+            ...items
+          ]);
+        }
+      } catch(e) {
+        // Fallback to i18n
+        setDynamicTickerItems([
+          `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+          t("tickerRice"),
+          t("tickerDal"),
+          t("tickerOil"),
+          t("tickerChicken")
+        ]);
+      }
+    };
+    
+    // Call fallback immediately, then fetch
+    setDynamicTickerItems([
+      `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+      t("tickerRice"),
+      t("tickerDal"),
+      t("tickerOil"),
+      t("tickerChicken")
+    ]);
+    
+    // Fetch real data
+    fetchTickerData();
+  }, [lang, t]);
+
+  const renderTickerItem = (text) => {
+    if (typeof text !== "string") return text;
+    if (text.includes("⬆")) {
+      const parts = text.split("⬆");
+      return <>{parts[0]} <span className="text-red-300 dark:text-red-400 font-bold">⬆</span>{parts[1]}</>;
+    }
+    if (text.includes("⬇")) {
+      const parts = text.split("⬇");
+      return <>{parts[0]} <span className="text-green-300 dark:text-green-400 font-bold">⬇</span>{parts[1]}</>;
+    }
+    if (text.includes("➖")) {
+      const parts = text.split("➖");
+      return <>{parts[0]} <span className="text-yellow-300 dark:text-yellow-400 font-bold">➖</span>{parts[1]}</>;
+    }
+    return text;
+  };
 
   return (
     <>
       {/* Price Ticker */}
-      <div className="bg-green-600 dark:bg-green-800 text-white py-1 overflow-hidden">
-        <div className="marquee flex gap-8 whitespace-nowrap text-sm">
-          <span>{t("datePrefix")} {lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}</span>
-          <span>•</span>
-          <span>{t("tickerRice")}</span>
-          <span>•</span>
-          <span>{t("tickerDal")}</span>
-          <span>•</span>
-          <span>{t("tickerOil")}</span>
-          <span>•</span>
-          <span>{t("tickerChicken")}</span>
+      <div className="bg-green-600 dark:bg-green-800 text-white py-1 overflow-hidden relative h-7">
+        <div className="absolute top-1/2 -translate-y-1/2 animate-marquee flex items-center gap-8 whitespace-nowrap text-sm font-medium w-max">
+          {dynamicTickerItems.map((item, index) => (
+            <span key={index} className="flex items-center gap-8">
+              <span>{renderTickerItem(item)}</span>
+              {index < dynamicTickerItems.length - 1 && <span>•</span>}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -34,8 +92,8 @@ const Navbar = () => {
             
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                {lang === "en" ? "B" : "ব"}
+              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center text-white">
+                <ShoppingCart className="w-5 h-5" />
               </div>
               <span className="font-bold text-xl text-gray-900 dark:text-white">{t("brandTitle")}</span>
             </Link>
@@ -56,6 +114,8 @@ const Navbar = () => {
                     <Link href="/category/chal" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{t("catRice")}</Link>
                     <Link href="/category/dal" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{t("catDal")}</Link>
                     <Link href="/category/tel" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{t("catOil")}</Link>
+                    <Link href="/category/mudikhana" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{lang === "en" ? "Groceries" : "মুদিখানা"}</Link>
+                    <Link href="/category/health-beauty" className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400">{lang === "en" ? "Health & Beauty" : "হেলথ অ্যান্ড বিউটি"}</Link>
                   </div>
                 </div>
               </div>
