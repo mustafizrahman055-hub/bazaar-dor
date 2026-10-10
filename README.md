@@ -2,9 +2,9 @@
 
 A simple e-commerce like web application to check daily product prices (বাজার দর). This is built as part of my Programming Hero Batch 14 Assignment 7.
 
-##  Live Demo
-*(Will add the live link here after deployment)*
-
+## 🚀 Live Demo & Repository
+- **Live Site:** [https://bazaar-dor-plum.vercel.app](https://bazaar-dor-plum.vercel.app)
+- **GitHub Repository:** [https://github.com/mustafizrahman055-hub/bazaar-dor](https://github.com/mustafizrahman055-hub/bazaar-dor)
 ## Technologies Used
 - Next.js (App Router)
 - Tailwind CSS
