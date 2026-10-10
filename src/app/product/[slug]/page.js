@@ -1,4 +1,6 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 import ProductDetailsContent from "@/components/ProductDetailsContent";
 import { getAllProducts } from "@/lib/api";
 
@@ -10,6 +12,14 @@ async function getProduct(slug) {
 }
 
 export default async function ProductDetailsPage({ params }) {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+
+  if (!session) {
+    redirect("/signin");
+  }
+
   const { slug } = await params;
   const product = await getProduct(slug);
 

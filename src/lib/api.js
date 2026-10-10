@@ -1115,9 +1115,12 @@ function simulateDailyPrices(products) {
   });
 }
 
+import { connection } from "next/server";
+
 export async function getAllProducts() {
+  await connection();
   try {
-    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products", {
+    const res = await fetch("https://openapi.programming-hero.com/api/bazardor/products", {
       next: { revalidate: 3600 } // revalidate hourly
     });
     let data = [];

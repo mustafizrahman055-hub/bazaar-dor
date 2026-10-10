@@ -3,17 +3,39 @@ import Link from "next/link";
 import { LogIn } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignInPage() {
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    // Simulate login for now
-    setTimeout(() => {
+    setIsLoading(true);
+    setError("");
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    
+    const { data, error } = await authClient.signIn.email({
+        email,
+        password,
+    });
+    
+    setIsLoading(false);
+    if (error) {
+      setError(error.message || "লগিন ব্যর্থ হয়েছে। সঠিক ইমেইল ও পাসওয়ার্ড দিন।");
+    } else {
       router.push("/");
-    }, 1000);
+      router.refresh();
+    }
+  };
+
+  const handleSocialLogin = async (provider) => {
+    await authClient.signIn.social({
+        provider,
+        callbackURL: "/"
+    });
   };
 
   return (
@@ -38,17 +60,19 @@ export default function SignInPage() {
         <form className="mt-8 space-y-6" onSubmit={handleSignIn}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">মোবাইল নম্বর</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">ইমেইল অ্যাড্রেস</label>
               <input
-                type="tel"
+                name="email"
+                type="email"
                 required
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="আপনার মোবাইল নম্বর দিন"
+                placeholder="আপনার ইমেইল দিন"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">পাসওয়ার্ড</label>
               <input
+                name="password"
                 type="password"
                 required
                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
@@ -60,9 +84,10 @@ export default function SignInPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors disabled:bg-gray-400"
             >
-              লগিন করুন
+              {isLoading ? "লগিন হচ্ছে..." : "লগিন করুন"}
             </button>
           </div>
         </form>
@@ -78,7 +103,9 @@ export default function SignInPage() {
           </div>
 
           <div className="mt-6">
-            <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors gap-2">
+            <button 
+              onClick={() => handleSocialLogin("google")}
+              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors gap-2">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />

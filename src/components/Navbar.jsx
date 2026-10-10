@@ -4,11 +4,21 @@ import { User, Menu, X, Sun, Moon, Languages, ShoppingCart } from "lucide-react"
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const { lang, toggleLanguage, t, mounted } = useLanguage();
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+  
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    router.refresh();
+  };
+
   const [dynamicTickerItems, setDynamicTickerItems] = useState([
     `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
   ]);
@@ -147,13 +157,23 @@ const Navbar = () => {
                 <Moon className="w-5 h-5 block dark:hidden" />
               </button>
 
-              <Link 
-                href="/signin" 
-                className="flex items-center gap-2 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-lg font-medium hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
-              >
-                <User className="w-4 h-4" />
-                {t("signin")}
-              </Link>
+              {session ? (
+                <button 
+                  onClick={handleSignOut}
+                  className="flex items-center gap-2 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg font-medium hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  {lang === "en" ? "Sign Out" : "লগআউট"}
+                </button>
+              ) : (
+                <Link 
+                  href="/signin" 
+                  className="flex items-center gap-2 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-lg font-medium hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  {t("signin")}
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -183,10 +203,17 @@ const Navbar = () => {
               <Link href="/category" className="block text-gray-600 dark:text-gray-300 font-medium py-2">{t("category")}</Link>
               <Link href="/contact" className="block text-gray-600 dark:text-gray-300 font-medium py-2">{t("contact")}</Link>
               <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center">
-                <Link href="/signin" className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium py-2">
-                  <User className="w-4 h-4" />
-                  {t("signin")}
-                </Link>
+                {session ? (
+                  <button onClick={handleSignOut} className="flex items-center gap-2 text-red-600 dark:text-red-400 font-medium py-2">
+                    <User className="w-4 h-4" />
+                    {lang === "en" ? "Sign Out" : "লগআউট"}
+                  </button>
+                ) : (
+                  <Link href="/signin" className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium py-2">
+                    <User className="w-4 h-4" />
+                    {t("signin")}
+                  </Link>
+                )}
                 {mounted && (
                   <button 
                     onClick={toggleLanguage}
