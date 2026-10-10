@@ -57,38 +57,31 @@ export default function CategoryContent({ slug, sort, products }) {
         </div>
 
         {/* Sort Controls */}
-        <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 p-1.5 rounded-lg border border-gray-100 dark:border-gray-700">
-          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium px-2">{t("sortBy")}</span>
-          <Link 
-            href={`/category/${slug}`}
-            className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
-              !sort 
-                ? "bg-white dark:bg-gray-700 text-green-700 dark:text-green-400 shadow-sm font-medium" 
-                : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700/50"
-            }`}
-          >
-            {t("default")}
-          </Link>
-          <Link 
-            href={`/category/${slug}?sort=asc`}
-            className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
-              sort === "asc" 
-                ? "bg-white dark:bg-gray-700 text-green-700 dark:text-green-400 shadow-sm font-medium" 
-                : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700/50"
-            }`}
-          >
-            {t("priceLowToHigh")}
-          </Link>
-          <Link 
-            href={`/category/${slug}?sort=desc`}
-            className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
-              sort === "desc" 
-                ? "bg-white dark:bg-gray-700 text-green-700 dark:text-green-400 shadow-sm font-medium" 
-                : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700/50"
-            }`}
-          >
-            {t("priceHighToLow")}
-          </Link>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{t("sortBy")}</span>
+          <div className="relative">
+            <select
+              value={sort || ""}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val) {
+                  window.location.href = `/category/${slug}?sort=${val}`;
+                } else {
+                  window.location.href = `/category/${slug}`;
+                }
+              }}
+              className="appearance-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 pl-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 cursor-pointer font-medium"
+            >
+              <option value="">{t("default")}</option>
+              <option value="asc">{t("priceLowToHigh")}</option>
+              <option value="desc">{t("priceHighToLow")}</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 
