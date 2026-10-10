@@ -200,6 +200,22 @@ export function getUnitText(unit, lang = "bn") {
   return unit;
 }
 
+export function getTodayDate(lang = "bn") {
+  const date = new Date();
+  if (lang === "bn") {
+    return new Intl.DateTimeFormat('bn-BD', { 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    }).format(date);
+  }
+  return new Intl.DateTimeFormat('en-US', { 
+    month: 'long', 
+    day: 'numeric',
+    year: 'numeric' 
+  }).format(date);
+}
+
 export const translations = {
   bn: {
     // Navigation & Brand

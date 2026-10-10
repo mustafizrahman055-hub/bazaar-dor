@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { getTodayDate } from "@/lib/i18n";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +21,7 @@ const Navbar = () => {
   };
 
   const [dynamicTickerItems, setDynamicTickerItems] = useState([
-    `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+    `${t("datePrefix")} ${getTodayDate(lang)}`,
   ]);
 
   useEffect(() => {
@@ -35,14 +36,14 @@ const Navbar = () => {
             return `${name}: ${p.today} ৳ ${sign}`;
           });
           setDynamicTickerItems([
-            `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+            `${t("datePrefix")} ${getTodayDate(lang)}`,
             ...items
           ]);
         }
       } catch(e) {
         // Fallback to i18n
         setDynamicTickerItems([
-          `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+          `${t("datePrefix")} ${getTodayDate(lang)}`,
           t("tickerRice"),
           t("tickerDal"),
           t("tickerOil"),
@@ -53,7 +54,7 @@ const Navbar = () => {
     
     // Call fallback immediately, then fetch
     setDynamicTickerItems([
-      `${t("datePrefix")} ${lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}`,
+      `${t("datePrefix")} ${getTodayDate(lang)}`,
       t("tickerRice"),
       t("tickerDal"),
       t("tickerOil"),

@@ -1,6 +1,7 @@
 "use client";
 import { ArrowRight, ShoppingBasket } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getTodayDate } from "@/lib/i18n";
 
 export default function HeroSection() {
   const { t, lang } = useLanguage();
@@ -10,7 +11,7 @@ export default function HeroSection() {
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8 justify-between">
         <div className="flex-1 space-y-6">
           <p className="text-green-700 dark:text-emerald-400 font-semibold tracking-wide text-sm md:text-base">
-            {t("datePrefix")} {lang === "en" ? "October 10, 2026" : "১০ অক্টোবর ২০২৬"}
+            {t("datePrefix")} {getTodayDate(lang)}
           </p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
             {t("heroTitle")}
